@@ -72,12 +72,11 @@ class WaterFillingOptimizer:
     Returns:
       float: Computed rate-distortion value in bits per pixel.
     """
-    alpha = self.find_alpha(distortion)
-    #print("distortion", distortion, "alpha is ", alpha)
+    alpha = self.find_alpha(distortion) 
     # Pick eigenvalues greater than alpha
     mask = self.eigvals > alpha # T/F, (MN,), numpy array
     selected_eigvals = self.eigvals[mask] # wherever it is T, numpy array
-    rate_value =  0.5*np.sum(np.log2(selected_eigvals / alpha))
+    rate_value =  0.5*np.sum(np.log(selected_eigvals / alpha))
     rate_value = rate_value/(self.m * self.n)  # Convert to bits per pixel
 
     return rate_value
